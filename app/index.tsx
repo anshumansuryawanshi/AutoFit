@@ -1,4 +1,12 @@
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+
+type RootStackParamList = {
+  index: undefined;
+  add: undefined;
+};
+type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
 
 const styles = StyleSheet.create({
   container:{
@@ -98,6 +106,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Index() {
+  const navigation = useNavigation<NavigationProp>();
   return (
     <View style={styles.container}>
 
@@ -121,9 +130,9 @@ export default function Index() {
       
       <View style={styles.footercontainer}>
         <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.leftbutton} onPress={() => console.log("Add Clothes pressed")}>
+        <TouchableOpacity style={styles.leftbutton} onPress={() => navigation.navigate('add')}>
             <Text style={[styles.rectangleText, { textAlign: 'center' }]}>Add Clothes</Text> 
-          </TouchableOpacity>
+        </TouchableOpacity>
 
           <TouchableOpacity style={styles.rightbutton} onPress={() => console.log("View Closet pressed")}>
             <Text style={[styles.rectangleText, { textAlign: 'center' }]}>View Closet</Text> 

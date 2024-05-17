@@ -1,15 +1,11 @@
-import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+// add.tsx
+import React from 'react';
+import { View, Text } from 'react-native';
 
-const styles = StyleSheet.create({
-    container:{
-      flex: 1,
-      backgroundColor: 'white',
-    },
-});
-
-
-// export default function Add() {
-//   return (
-//     <View style={styles.container}>
-//   );
-// }
+export default function Add() {
+  return (
+    <View>
+      <Text>Add Clothes Screen</Text>
+    </View>
+  );
+}
