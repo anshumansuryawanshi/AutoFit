@@ -1,19 +1,11 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  
-  welcomeContainer: {
+  container:{
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: 'white',
   },
-  welcomeText: {
-    fontSize: 50,
-    textAlign: 'center',
-    margin: 10,
-  },
-  footerContainer: {
+  footercontainer: {
     flex: 1,
     justifyContent: 'flex-end', // Align items to the bottom of the container
     backgroundColor: 'white',
@@ -67,21 +59,24 @@ const styles = StyleSheet.create({
 
 export default function Index() {
   return (
+    <View style={styles.container}>
+      <Text>Open up App.tsx to start working on your app!</Text>
+      <View style={styles.footercontainer}>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity style={styles.leftbutton} onPress={() => console.log("Add Clothes pressed")}>
+            <Text style={[styles.rectangleText, { textAlign: 'left' }]}>Add Clothes</Text> 
+          </TouchableOpacity>
 
-    <View style={styles.footerContainer}>
-      <View style={styles.buttonsContainer}>
-        <TouchableOpacity style={styles.leftbutton} onPress={() => console.log("Add Clothes pressed")}>
-          <Text style={[styles.rectangleText, { textAlign: 'left' }]}>Add Clothes</Text> 
-        </TouchableOpacity>
+          <TouchableOpacity style={styles.rightbutton} onPress={() => console.log("View Closet pressed")}>
+            <Text style={[styles.rectangleText, { textAlign: 'right' }]}>View Closet</Text> 
+          </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity style={styles.rightbutton} onPress={() => console.log("View Closet pressed")}>
-          <Text style={[styles.rectangleText, { textAlign: 'right' }]}>View Closet</Text> 
+        <TouchableOpacity style={styles.dressButton} onPress={() => console.log("Dress Me Up! pressed")}>
+          <Text style={styles.circleText}>Dress Me Up!</Text>
         </TouchableOpacity>
       </View>
-
-      <TouchableOpacity style={styles.dressButton} onPress={() => console.log("Dress Me Up! pressed")}>
-        <Text style={styles.circleText}>Dress Me Up!</Text>
-      </TouchableOpacity>
     </View>
+
   );
 }
