@@ -1,7 +1,19 @@
 import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-  container: {
+  
+  welcomeContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'white',
+  },
+  welcomeText: {
+    fontSize: 50,
+    textAlign: 'center',
+    margin: 10,
+  },
+  footerContainer: {
     flex: 1,
     justifyContent: 'flex-end', // Align items to the bottom of the container
     backgroundColor: 'white',
@@ -41,10 +53,10 @@ const styles = StyleSheet.create({
     fontSize: 22
   },
   dressButton: {
-    width: 150,
-    height: 150,
+    width: 190,
+    height: 190,
     backgroundColor: 'red',
-    borderRadius: 75,
+    borderRadius: 95,
     position: 'absolute',
     bottom: 0, 
     alignSelf: 'center', 
@@ -55,7 +67,8 @@ const styles = StyleSheet.create({
 
 export default function Index() {
   return (
-    <View style={styles.container}>
+
+    <View style={styles.footerContainer}>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.leftbutton} onPress={() => console.log("Add Clothes pressed")}>
           <Text style={[styles.rectangleText, { textAlign: 'left' }]}>Add Clothes</Text> 
