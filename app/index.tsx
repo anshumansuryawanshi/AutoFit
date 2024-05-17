@@ -11,35 +11,42 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     width: '100%',
-    padding: 20, 
+    padding: 18, 
     backgroundColor: 'black', // Black background for the buttons area
   },
   rightbutton: {
-    padding: 20,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1, // Allow buttons to expand equally
-    paddingLeft: 40,
+    paddingLeft: 100,
   },
   leftbutton: {
-    padding: 20,
+    padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1, // Allow buttons to expand equally
     paddingRight: 100,
   },
-  text: {
+  rectangleText: {
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+    fontSize: 18
+  },
+  circleText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+    fontSize: 22
   },
   dressButton: {
-    width: 120,
-    height: 120,
+    width: 150,
+    height: 150,
     backgroundColor: 'red',
     borderRadius: 75,
     position: 'absolute',
-    bottom: 30, 
+    bottom: 0, 
     alignSelf: 'center', 
     justifyContent: 'center', 
     alignItems: 'center', 
@@ -51,16 +58,16 @@ export default function Index() {
     <View style={styles.container}>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity style={styles.leftbutton} onPress={() => console.log("Add Clothes pressed")}>
-          <Text style={[styles.text, { textAlign: 'left' }]}>Add Clothes</Text> 
+          <Text style={[styles.rectangleText, { textAlign: 'left' }]}>Add Clothes</Text> 
         </TouchableOpacity>
 
         <TouchableOpacity style={styles.rightbutton} onPress={() => console.log("View Closet pressed")}>
-          <Text style={[styles.text, { textAlign: 'right' }]}>View Closet</Text> 
+          <Text style={[styles.rectangleText, { textAlign: 'right' }]}>View Closet</Text> 
         </TouchableOpacity>
       </View>
 
       <TouchableOpacity style={styles.dressButton} onPress={() => console.log("Dress Me Up! pressed")}>
-        <Text style={styles.text}>Dress Me Up!</Text>
+        <Text style={styles.circleText}>Dress Me Up!</Text>
       </TouchableOpacity>
     </View>
   );
