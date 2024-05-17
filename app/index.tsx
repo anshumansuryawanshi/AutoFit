@@ -6,22 +6,31 @@ const styles = StyleSheet.create({
     backgroundColor: 'white',
   },
   headercontainer: {
-    justifyContent: 'flex-start', // Align items to the top of the container
+    justifyContent: 'space-between', 
     backgroundColor: 'white',
+    flexDirection: 'row',
   },
   weathercontainer: {
-    paddingLeft: 50
+    paddingLeft: 20
+  },
+  weathertext:{
+    textAlign: 'center',
+    fontSize: 20,
+    paddingTop: 5
   },
   personalizecontainer:{
     justifyContent: 'center',
     alignItems: 'center',
-    paddingLeft: 250
+    paddingRight: 20
+
   },
   personalizetext:{
-    fontSize: 10,
+    fontSize: 15,
     color: 'white',
   },
   personalizebutton:{
+    width: 100,
+    height: 50,
     justifyContent: 'center',
     alignItems: 'center',
     padding: 10,
@@ -67,19 +76,18 @@ const styles = StyleSheet.create({
   },
   rectangleText: {
     color: 'white',
-    fontWeight: 'bold',
     fontSize: 18
   },
   circleText: {
     color: 'white',
-    fontWeight: 'bold',
     textAlign: 'center',
-    fontSize: 22
+    fontSize: 40,
+    padding: 20
   },
   dressButton: {
     width: 190,
     height: 190,
-    backgroundColor: 'red',
+    backgroundColor: '#E25D61',
     borderRadius: 95,
     position: 'absolute',
     bottom: 0, 
@@ -96,6 +104,7 @@ export default function Index() {
       <View style = {styles.headercontainer}>
         <View style = {styles.weathercontainer}>
           <Image source={require('../assets/images/weather_icon.png')} style={{ width: 50, height: 50 }} />
+          <Text style={[styles.weathertext]}> 75°F </Text>
         </View>
 
         <View style = {styles.personalizecontainer}>
