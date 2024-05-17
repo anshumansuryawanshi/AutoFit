@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     width: 190,
     height: 190,
     backgroundColor: 'red',
-    borderRadius: 100,
+    borderRadius: 95,
     position: 'absolute',
     bottom: 0, 
     alignSelf: 'center', 
