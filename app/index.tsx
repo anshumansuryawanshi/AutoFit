@@ -1,22 +1,45 @@
-import { View, TouchableOpacity, Text, StyleSheet } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
 
 const styles = StyleSheet.create({
   container:{
     flex: 1,
     backgroundColor: 'white',
   },
+  headercontainer: {
+    justifyContent: 'flex-start', // Align items to the top of the container
+    backgroundColor: 'white',
+  },
+  weathercontainer: {
+    paddingLeft: 50
+  },
+  personalizecontainer:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingLeft: 250
+  },
+  personalizetext:{
+    fontSize: 10,
+    color: 'white',
+  },
+  personalizebutton:{
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 10,
+    backgroundColor: 'black',
+    borderRadius: 10,
+  },
   middlecontainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    paddingTop: 120,
+    paddingTop: 0,
+    paddingBottom: 90
   },
   middletext:{
     fontSize: 60,
     color: 'black',
   },
   footercontainer: {
-    flex: 1,
     justifyContent: 'flex-end', // Align items to the bottom of the container
     backgroundColor: 'white',
   },
@@ -45,7 +68,6 @@ const styles = StyleSheet.create({
   rectangleText: {
     color: 'white',
     fontWeight: 'bold',
-    textAlign: 'center',
     fontSize: 18
   },
   circleText: {
@@ -70,6 +92,20 @@ const styles = StyleSheet.create({
 export default function Index() {
   return (
     <View style={styles.container}>
+
+      <View style = {styles.headercontainer}>
+        <View style = {styles.weathercontainer}>
+          <Image source={require('../assets/images/weather_icon.png')} style={{ width: 50, height: 50 }} />
+        </View>
+
+        <View style = {styles.personalizecontainer}>
+          <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("Personalize pressed")}>
+            <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
+          </TouchableOpacity>
+        </View>
+
+      </View>
+
       <View style={styles.middlecontainer}>
         <Text style={[styles.middletext, { textAlign: 'center' }]}>Hi [Name], ready for today's best outfit?</Text>
       </View>
@@ -84,8 +120,7 @@ export default function Index() {
             <Text style={[styles.rectangleText, { textAlign: 'center' }]}>View Closet</Text> 
           </TouchableOpacity>
         </View>
-
-        <TouchableOpacity style={styles.dressButton} onPress={() => console.log("Dress Me Up! pressed")}>
+        <TouchableOpacity activeOpacity = {.85} style={styles.dressButton} onPress={() => console.log("Dress Me Up! pressed")}>
           <Text style={styles.circleText}>Dress Me Up!</Text>
         </TouchableOpacity>
       </View>
