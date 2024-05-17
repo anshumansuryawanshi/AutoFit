@@ -5,6 +5,16 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'white',
   },
+  middlecontainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 120,
+  },
+  middletext:{
+    fontSize: 60,
+    color: 'black',
+  },
   footercontainer: {
     flex: 1,
     justifyContent: 'flex-end', // Align items to the bottom of the container
@@ -60,15 +70,18 @@ const styles = StyleSheet.create({
 export default function Index() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <View style={styles.middlecontainer}>
+        <Text style={[styles.middletext, { textAlign: 'center' }]}>Hi [Name], ready for today's best outfit?</Text>
+      </View>
+      
       <View style={styles.footercontainer}>
         <View style={styles.buttonsContainer}>
           <TouchableOpacity style={styles.leftbutton} onPress={() => console.log("Add Clothes pressed")}>
-            <Text style={[styles.rectangleText, { textAlign: 'left' }]}>Add Clothes</Text> 
+            <Text style={[styles.rectangleText, { textAlign: 'center' }]}>Add Clothes</Text> 
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.rightbutton} onPress={() => console.log("View Closet pressed")}>
-            <Text style={[styles.rectangleText, { textAlign: 'right' }]}>View Closet</Text> 
+            <Text style={[styles.rectangleText, { textAlign: 'center' }]}>View Closet</Text> 
           </TouchableOpacity>
         </View>
 
