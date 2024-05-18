@@ -5,6 +5,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 type RootStackParamList = {
   index: undefined;
   add: undefined; 
+  dress: undefined;
+  closet: undefined;
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
 
@@ -134,12 +136,12 @@ export default function Index() {
             <Text style={[styles.rectangleText, { textAlign: 'center' }]}>Add Clothes</Text> 
         </TouchableOpacity>
 
-          <TouchableOpacity style={styles.rightbutton} onPress={() => console.log("View Closet pressed")}>
+          <TouchableOpacity style={styles.rightbutton} onPress={() => navigation.navigate('closet')}>
             <Text style={[styles.rectangleText, { textAlign: 'center' }]}>View Closet</Text> 
           </TouchableOpacity>
         </View>
 
-        <TouchableOpacity activeOpacity = {.85} style={styles.dressButton} onPress={() => console.log("Dress Me Up! pressed")}> 
+        <TouchableOpacity activeOpacity = {.85} style={styles.dressButton} onPress={() => navigation.navigate('dress')}> 
           <Text style={styles.circleText}>Dress Me Up!</Text>
         </TouchableOpacity>
       

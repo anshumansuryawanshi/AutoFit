@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   export default function App() {
     const navigation = useNavigation<NavigationProp>();
     return (
-        <SafeAreaView style={styles.container}>
+        <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Congrats on the newest addition to your closet!</Text>
         </View>
@@ -62,6 +62,6 @@ const styles = StyleSheet.create({
         <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
           <Text style={styles.footerText}>Take Me Home</Text>
         </TouchableOpacity>
-      </SafeAreaView>
+      </View>
     );
   }
