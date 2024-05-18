@@ -1,6 +1,8 @@
 import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+
 
 type RootStackParamList = {
   index: undefined;
@@ -59,7 +61,7 @@ const styles = StyleSheet.create({
     color: 'black',
   },
   footercontainer: {
-    justifyContent: 'flex-end', // Align items to the bottom of the container
+    justifyContent: 'flex-end',
     backgroundColor: 'white',
   },
   buttonsContainer: {
@@ -68,20 +70,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     padding: 18, 
-    backgroundColor: 'black', // Black background for the buttons area
+    backgroundColor: 'black', 
   },
   rightbutton: {
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1, // Allow buttons to expand equally
+    flex: 1, 
     paddingLeft: 100,
   },
   leftbutton: {
     padding: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    flex: 1, // Allow buttons to expand equally
+    flex: 1, 
     paddingRight: 100,
   },
   rectangleText: {
@@ -107,15 +109,112 @@ const styles = StyleSheet.create({
   },
 });
 
+type WeatherImageKey = 'clear' | 'nightclear' | 'cloud' | 'nightcloud' | 'drizzle' | 'nightrain' | 'rain' | 'thunderstorm' | 'snow' | 'nightsnow' | 'mist' | 'default';
+
+type WeatherImages = {
+  [key in WeatherImageKey]: any;
+};
+
+const weather_images: WeatherImages = {
+  clear: require('../assets/images/clear.png'),
+  nightclear: require('../assets/images/nightclear.png'),
+  cloud: require('../assets/images/cloud.png'),
+  nightcloud: require('../assets/images/nightcloud.png'),
+  drizzle: require('../assets/images/drizzle.png'),
+  nightrain: require('../assets/images/nightrain.png'),
+  rain: require('../assets/images/rain.png'),
+  thunderstorm: require('../assets/images/thunderstorm.png'),
+  snow: require('../assets/images/snow.png'),
+  nightsnow: require('../assets/images/nightsnow.png'),
+  mist: require('../assets/images/mist.png'),
+  default: require('../assets/images/weather_icon.png'),
+};
+
 export default function Index() {
   const navigation = useNavigation<NavigationProp>();
+  let weather_api_key = "b619c02ef0d0c5ea4a66d9ddf680e09f";
+  let city = "Ann Arbor";
+  const [tempInFarenheit, setTempInFarenheit] = useState(0);
+  const [weather_path, setWeatherPath] = useState<WeatherImageKey>('default');
+  const fetchWeatherData = async (city: any) => {
+    const weather_url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weather_api_key}`;
+    try{
+      const response = await fetch(weather_url);
+      if (!response.ok) {
+        throw new Error("City not found");
+      }
+      const data = await response.json();
+      let kelvin = data.main.temp;
+      let exact = (1.8 * (kelvin - 273) + 32)
+      //if exact is a decimal, round to the nearest whole number
+      let farenheit = Math.round(exact);
+      setTempInFarenheit(farenheit);
+      if(data.weather && data.weather[0].icon) {
+        switch(data.weather[0].icon) {
+          case "01d":
+            setWeatherPath('clear');
+            break;
+          case "01n":
+            setWeatherPath('nightclear');
+            break;
+          case "02d":
+          case "03d":
+          case "04d":
+            setWeatherPath('cloud');
+            break;
+          case "02n":
+          case "03n":
+          case "04n":
+            setWeatherPath('nightcloud');
+            break;
+          case "09d":
+            setWeatherPath('drizzle');
+            break;
+          case "09n":
+            setWeatherPath('nightrain');
+            break;
+          case "10d":
+            setWeatherPath('rain');
+            break;
+          case "10n":
+            setWeatherPath('nightrain');
+            break;
+          case "11d":
+          case "11n":
+            setWeatherPath('thunderstorm');
+            break;
+          case "13d":
+            setWeatherPath('snow');
+            break;
+          case "13n":
+            setWeatherPath('nightsnow');
+            break;
+          case "50d":
+          case "50n":
+            setWeatherPath('mist');
+            break;
+          default:
+            console.log('Default case hit, setting to cloud_icon');
+            setWeatherPath('cloud');
+        }
+      }
+    }
+    catch(error){
+      console.log("Error fetching weather data: ", error);
+    }
+
+  };
+  useEffect(() => {
+    fetchWeatherData(city);
+  }, []);
+  
   return (
     <View style={styles.container}>
 
       <View style = {styles.headercontainer}>
         <View style = {styles.weathercontainer}>
-          <Image source={require('../assets/images/weather_icon.png')} style={{ width: 50, height: 50 }} />
-          <Text style={[styles.weathertext]}> 75°F </Text>
+          <Image source={weather_images[weather_path]} style={{ width: 50, height: 50 }} />
+          <Text style={[styles.weathertext]}> {tempInFarenheit}°F </Text>
         </View>
 
         <View style = {styles.personalizecontainer}>
