@@ -1,8 +1,9 @@
 // add.tsx
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Camera } from 'expo-camera';
 
 type RootStackParamList = {
     index: undefined;
@@ -53,12 +54,30 @@ const styles = StyleSheet.create({
   
   export default function App() {
     const navigation = useNavigation<NavigationProp>();
+    const [hasPermission, setHasPermission] = useState<null | boolean>(null);
+
+    useEffect(() => {
+      (async () => {
+        const { status } = await Camera.requestCameraPermissionsAsync();
+        setHasPermission(status === 'granted');
+      })();
+    }, []);
+
+    if (hasPermission === null) {
+      return <View />;
+    }
+    if (hasPermission === false) {
+      return <Text>No access to camera</Text>;
+    }
+  
     return (
-        <View style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.headerContainer}>
           <Text style={styles.headerText}>Congrats on the newest addition to your closet!</Text>
         </View>
         
+        <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back} />
+  
         <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
           <Text style={styles.footerText}>Take Me Home</Text>
         </TouchableOpacity>
