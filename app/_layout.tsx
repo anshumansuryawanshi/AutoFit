@@ -1,10 +1,9 @@
 // layout.tsx
+import React from 'react';
 import { Stack } from "expo-router";
 import Add from './add';
 import { NavigationContainer } from "@react-navigation/native";
 
-
-// layout.tsx
 export default function RootLayout() {
   return (
     <Stack>
@@ -12,6 +11,7 @@ export default function RootLayout() {
       <Stack.Screen name="add" /> 
       <Stack.Screen name="dress" />
       <Stack.Screen name="closet" />
+
     </Stack>
 
   );
