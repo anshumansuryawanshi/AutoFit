@@ -1,86 +1,87 @@
-// add.tsx
-import React, { useEffect, useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView } from 'react-native';
+import { CameraView, useCameraPermissions } from 'expo-camera';
+import React from 'react';
+import { useState } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { Camera } from 'expo-camera';
 
 type RootStackParamList = {
-    index: undefined;
-    add: undefined; 
+  index: undefined;
+  add: undefined; 
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'add'>;
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1,
-        backgroundColor: 'white',
-        justifyContent: 'space-between'
-      },
+  container: {
+    flex: 1,
+    backgroundColor: 'white',
+    justifyContent: 'center',
+  },
+  headerText: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
+  },
+  camera: {
+    flex: 1,
+  },
+  savebutton: {
+    height: 100,
+    width: 100,
+    borderRadius: 50,
+    backgroundColor: '#E25D61',
+    position: 'absolute',
+    bottom: 60,
+    alignSelf: 'center',
+  },
+  footerButton: {
+    width: '100%',
+    height: '10%',
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignSelf: 'center',
 
-    headerContainer: {
-      backgroundColor: '#E25D61', // Change this to any color you want
-      marginTop: 25, // Adjust this value to move the rectangle down from the top
-      marginHorizontal: 20, // Adds horizontal padding to bring the edges in
-      borderRadius: 10, // Rounds the corners
-      paddingVertical: 10, // Vertical padding inside the rectangle
-      paddingHorizontal: 30, // Horizontal padding inside the rectangle
-    },
+  },
+  footerText: {
+    color: 'white',
+    fontSize: 20,
+    textAlign: 'center',
+  },
 
-    headerText: {
-      color: 'white',
-      fontSize: 20,
-      textAlign: 'center',
-    },
+});
 
-    footerButton: {
-        width: 200,
-        height: 50,
-        backgroundColor: 'black',
-        justifyContent: 'center',
-        borderRadius: 10,
-        alignSelf: 'center',
-        bottom: 75,
-        position: 'absolute',
-    },
+export default function App() {
+  const navigation = useNavigation<NavigationProp>();
+  const [permission, requestPermission] = useCameraPermissions();
 
-    footerText: {
-        color: 'white',
-        fontSize: 20,
-        textAlign: 'center',
-    },
+  if (!permission) {
+    // Camera permissions are still loading.
+    return <View />;
+  }
 
-  });
-  
-  export default function App() {
-    const navigation = useNavigation<NavigationProp>();
-    const [hasPermission, setHasPermission] = useState<null | boolean>(null);
-
-    useEffect(() => {
-      (async () => {
-        const { status } = await Camera.requestCameraPermissionsAsync();
-        setHasPermission(status === 'granted');
-      })();
-    }, []);
-
-    if (hasPermission === null) {
-      return <View />;
-    }
-    if (hasPermission === false) {
-      return <Text>No access to camera</Text>;
-    }
-  
+  if (!permission.granted) {
+    // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
-        <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Congrats on the newest addition to your closet!</Text>
-        </View>
-        
-        <Camera style={{ flex: 1 }} type={Camera.Constants.Type.back} />
-  
-        <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
-          <Text style={styles.footerText}>Take Me Home</Text>
-        </TouchableOpacity>
+        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="grant permission" />
       </View>
     );
   }
+
+  return (
+    <View style={styles.container}>
+
+      <CameraView style={styles.camera}>
+        <TouchableOpacity style={styles.savebutton} onPress={() => console.log("SAVE PHOTO")}> 
+        </TouchableOpacity>
+      </CameraView>
+
+      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
+          <Text style={styles.footerText}>Take Me Home</Text>
+        </TouchableOpacity>
+
+    </View>
+  );
+}
