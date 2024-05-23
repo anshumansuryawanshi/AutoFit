@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, FlatList, StyleSheet, TouchableOpacity, Image } from 'react-native';
+import { View, Text, ScrollView, FlatList, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform, StatusBar } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -117,63 +117,70 @@ const styles = StyleSheet.create({
 export default function ViewCloset() {
     const navigation = useNavigation<NavigationProp>();
     return (
-        <ScrollView style={styles.container}>
-            <View style = {styles.header}>
-                <Text style={styles.headerText}>T-SHIRTS</Text>
-                <FlatList
-                    data={dataTshirts}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </View>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>SWEATPANTS</Text>
-                <FlatList
-                    data={dataSweatpants}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </View>
-            <View style={styles.header}>
-                <Text style={styles.headerText}>SWEATSHIRTS</Text>
-                <FlatList
-                    data={dataSweatshirts}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </View>
+        <>
+            <SafeAreaView style={{ flex: 0, backgroundColor: 'transparent' }} />
+            {/* <SafeAreaView style={{ flex: 1, position: 'absolute', top: Platform.OS === 'android' ? StatusBar.currentHeight : 0, left: 0, right: 0, bottom: 0 }}> */}
+                <ScrollView style={styles.container}>
 
-            <View style={styles.header}>
-                <Text style={styles.headerText}>BUTTON-DOWNS</Text>
-                <FlatList
-                    data={dataButtonDowns}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </View>
+                    <View style = {styles.header}>
+                        <Text style={styles.headerText}>T-SHIRTS</Text>
+                        <FlatList
+                            data={dataTshirts}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>SWEATPANTS</Text>
+                        <FlatList
+                            data={dataSweatpants}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>SWEATSHIRTS</Text>
+                        <FlatList
+                            data={dataSweatshirts}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
 
-            <View style={styles.header}>
-                <Text style={styles.headerText}>SHORTS</Text>
-                <FlatList
-                    data={dataShorts}
-                    renderItem={renderItem}
-                    keyExtractor={item => item.id}
-                    horizontal={true}
-                    showsHorizontalScrollIndicator={false}
-                />
-            </View>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>BUTTON-DOWNS</Text>
+                        <FlatList
+                            data={dataButtonDowns}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
 
-            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
-                <Text style={styles.buttonText}>Take Me Home</Text>
-            </TouchableOpacity>
-        </ScrollView>
+                    <View style={styles.header}>
+                        <Text style={styles.headerText}>SHORTS</Text>
+                        <FlatList
+                            data={dataShorts}
+                            renderItem={renderItem}
+                            keyExtractor={item => item.id}
+                            horizontal={true}
+                            showsHorizontalScrollIndicator={false}
+                        />
+                    </View>
+
+                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
+                        <Text style={styles.buttonText}>Take Me Home</Text>
+                    </TouchableOpacity>
+
+                </ScrollView>
+            {/* </SafeAreaView> */}
+        </>
     );
 }

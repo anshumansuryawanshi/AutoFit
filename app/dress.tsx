@@ -110,44 +110,46 @@ const styles = StyleSheet.create({
   export default function Index() {
     const navigation = useNavigation<NavigationProp>();
     return (
-      <View style={styles.container}>
-  
-        <View style = {styles.headercontainer}>
-          {/* <View style = {styles.weathercontainer}>
-            <Image source={require('../assets/images/weather_icon.png')} style={{ width: 50, height: 50 }} />
-            <Text style={[styles.weathertext]}> 75°F </Text>
-          </View> */}
-  
-          {/* <View style = {styles.personalizecontainer}>
-            <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("Personalize pressed")}>
-              <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
-            </TouchableOpacity>
-          </View> */}
-  
-        </View>
-  
-        <View style={styles.middlecontainer}>
-          <Text style={styles.middletext}>Today's Fit:</Text>
-        </View>
-        
-        <View style={styles.footercontainer}>
-          <View style={styles.buttonsContainer}>
-          <TouchableOpacity style={styles.leftbutton} onPress={() => navigation.navigate('add')}>
-              <Text style={[styles.rectangleText, { textAlign: 'center' }]}>Add Clothes</Text> 
-          </TouchableOpacity>
-  
-            <TouchableOpacity style={styles.rightbutton} onPress={() => navigation.navigate('closet')}>
-              <Text style={[styles.rectangleText, { textAlign: 'center' }]}>View Closet</Text> 
-            </TouchableOpacity>
+      <>
+        <SafeAreaView style={{ flex: 0, backgroundColor: 'transparent' }} />
+        <View style={styles.container}>
+    
+          <View style = {styles.headercontainer}>
+            {/* <View style = {styles.weathercontainer}>
+              <Image source={require('../assets/images/weather_icon.png')} style={{ width: 50, height: 50 }} />
+              <Text style={[styles.weathertext]}> 75°F </Text>
+            </View> */}
+    
+            {/* <View style = {styles.personalizecontainer}>
+              <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("Personalize pressed")}>
+                <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
+              </TouchableOpacity>
+            </View> */}
+    
           </View>
-  
-          <TouchableOpacity activeOpacity = {.85} style={styles.dressButton} onPress={() => console.log("Next Fit pressed")}> 
-            <Text style={styles.circleText}>Next Outfit</Text>
-          </TouchableOpacity>
-        
-  
+    
+          <View style={styles.middlecontainer}>
+            <Text style={styles.middletext}>Today's Fit:</Text>
+          </View>
+          
+          <View style={styles.footercontainer}>
+            <View style={styles.buttonsContainer}>
+            <TouchableOpacity style={styles.leftbutton} onPress={() => navigation.navigate('add')}>
+                <Text style={[styles.rectangleText, { textAlign: 'center' }]}>Add Clothes</Text> 
+            </TouchableOpacity>
+    
+              <TouchableOpacity style={styles.rightbutton} onPress={() => navigation.navigate('closet')}>
+                <Text style={[styles.rectangleText, { textAlign: 'center' }]}>View Closet</Text> 
+              </TouchableOpacity>
+            </View>
+    
+            <TouchableOpacity activeOpacity = {.85} style={styles.dressButton} onPress={() => console.log("Next Fit pressed")}> 
+              <Text style={styles.circleText}>Next Outfit</Text>
+            </TouchableOpacity>
+          
+    
+          </View>
         </View>
-      </View>
-  
+      </>
     );
   }

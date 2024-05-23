@@ -1,4 +1,5 @@
-import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
+
+import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -209,21 +210,23 @@ export default function Index() {
   }, []);
   
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <SafeAreaView>
+        <View style = {styles.headercontainer}>
+          <View style = {styles.weathercontainer}>
+            <Image source={weather_images[weather_path]} style={{ width: 50, height: 50 }} />
+            <Text style={[styles.weathertext]}> {tempInFarenheit}°F </Text>
+          </View>
 
-      <View style = {styles.headercontainer}>
-        <View style = {styles.weathercontainer}>
-          <Image source={weather_images[weather_path]} style={{ width: 50, height: 50 }} />
-          <Text style={[styles.weathertext]}> {tempInFarenheit}°F </Text>
+          <View style = {styles.personalizecontainer}>
+            <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("Personalize pressed")}>
+              <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
+            </TouchableOpacity>
+          </View>
+
         </View>
+      </SafeAreaView>
 
-        <View style = {styles.personalizecontainer}>
-          <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("Personalize pressed")}>
-            <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
-          </TouchableOpacity>
-        </View>
-
-      </View>
 
       <View style={styles.middlecontainer}>
         <Text style={[styles.middletext, { textAlign: 'center' }]}>Hi [Name], ready for today's best outfit?</Text>
@@ -246,7 +249,8 @@ export default function Index() {
       
 
       </View>
-    </SafeAreaView>
+    </View>
+
 
   );
 }
