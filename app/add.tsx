@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Camera } from 'expo-camera';
 
 type RootStackParamList = {
   index: undefined;
