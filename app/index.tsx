@@ -24,6 +24,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     backgroundColor: 'white',
     flexDirection: 'row',
+    paddingTop: 30,
   },
   weathercontainer: {
     paddingLeft: 20
