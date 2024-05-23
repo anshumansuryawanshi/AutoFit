@@ -3,6 +3,7 @@ import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView} from 're
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import * as Location from 'expo-location';
 
 
 type RootStackParamList = {
@@ -137,8 +138,9 @@ export default function Index() {
   let city = "Ann Arbor";
   const [tempInFarenheit, setTempInFarenheit] = useState(0);
   const [weather_path, setWeatherPath] = useState<WeatherImageKey>('default');
-  const fetchWeatherData = async (city: any) => {
-    const weather_url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weather_api_key}`;
+
+  const fetchWeatherData = async (location: Location.LocationObject) => {
+    const weather_url = `https://api.openweathermap.org/data/2.5/weather?lat=${location.coords.latitude}&lon=${location.coords.longitude}&appid=${weather_api_key}`;
     try{
       const response = await fetch(weather_url);
       if (!response.ok) {
@@ -149,6 +151,9 @@ export default function Index() {
       let exact = (1.8 * (kelvin - 273) + 32)
       //if exact is a decimal, round to the nearest whole number
       let farenheit = Math.round(exact);
+      console.log("Farenheit: ", farenheit);
+      console.log("Longitude: ", location.coords.longitude);
+      console.log("Latitude: ", location.coords.latitude);
       setTempInFarenheit(farenheit);
       if(data.weather && data.weather[0].icon) {
         switch(data.weather[0].icon) {
@@ -205,8 +210,19 @@ export default function Index() {
     }
 
   };
+  const fetchUserLocationAndWeather = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.log('Permission to access location was denied');
+      return;
+    }
+
+    let location = await Location.getCurrentPositionAsync({});
+    fetchWeatherData(location);
+  };
+
   useEffect(() => {
-    fetchWeatherData(city);
+    fetchUserLocationAndWeather();;
   }, []);
   
   return (
@@ -219,7 +235,7 @@ export default function Index() {
           </View>
 
           <View style = {styles.personalizecontainer}>
-            <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("Personalize pressed")}>
+            <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("personalize pressed")}>
               <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
             </TouchableOpacity>
           </View>
