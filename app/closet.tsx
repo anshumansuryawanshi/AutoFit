@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ScrollView, FlatList, StyleSheet, TouchableOpacity, Image, SafeAreaView, Platform, StatusBar } from 'react-native';
+import { View, Text, ScrollView, FlatList, StyleSheet, TouchableOpacity, Image, SafeAreaView, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -117,9 +117,10 @@ const styles = StyleSheet.create({
 
 export default function ViewCloset() {
     const navigation = useNavigation<NavigationProp>();
+    const colorScheme = useColorScheme();
     return (
         <>
-            <SafeAreaView style={{ flex: 0, backgroundColor: 'transparent' }} />
+            <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}/>
             {/* <SafeAreaView style={{ flex: 1, position: 'absolute', top: Platform.OS === 'android' ? StatusBar.currentHeight : 0, left: 0, right: 0, bottom: 0 }}> */}
                 <ScrollView style={styles.container}>
 

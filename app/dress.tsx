@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Image} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Image, useColorScheme} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -110,9 +110,10 @@ const styles = StyleSheet.create({
   
   export default function Index() {
     const navigation = useNavigation<NavigationProp>();
+    const colorScheme = useColorScheme();
     return (
       <>
-        <SafeAreaView style={{ flex: 0, backgroundColor: 'transparent' }} />
+        <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}/>
         <View style={styles.container}>
     
           <View style = {styles.headercontainer}>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Image} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Image, useColorScheme} from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 
@@ -55,14 +55,19 @@ const styles = StyleSheet.create({
 
 export default function Personalize() {
     const navigation = useNavigation<NavigationProp>();
+    const colorScheme = useColorScheme();
     return (
-        <View>
-            <Text>Welcome to Personalize Page</Text>
-            {/* Add your components and content here */}
-            <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
-                        <Text style={styles.buttonText}>Take Me Home</Text>
-            </TouchableOpacity>
-        </View>
+        <>
+            <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}/>
+            <View>
+                <Text>Welcome to Personalize Page</Text>
+                {/* Add your components and content here */}
+                <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
+                            <Text style={styles.buttonText}>Take Me Home</Text>
+                </TouchableOpacity>
+            </View>
+        </>
+        
     );
 };
 

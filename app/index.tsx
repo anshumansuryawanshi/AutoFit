@@ -1,5 +1,5 @@
 
-import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView} from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView, useColorScheme} from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -228,9 +228,10 @@ export default function Index() {
     fetchUserLocationAndWeather();;
   }, []);
   
+  const colorScheme = useColorScheme();
   return (
     <View style={styles.container}>
-      <SafeAreaView>
+      <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}>
         <View style = {styles.headercontainer}>
           <View style = {styles.weathercontainer}>
             <Image source={weather_images[weather_path]} style={{ width: 50, height: 50 }} />
