@@ -1,4 +1,4 @@
-import { View, TouchableOpacity, Text, StyleSheet, Image } from 'react-native';
+import { View, TouchableOpacity, Text, StyleSheet, Image, SafeAreaView } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
@@ -209,7 +209,7 @@ export default function Index() {
   }, []);
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
 
       <View style = {styles.headercontainer}>
         <View style = {styles.weathercontainer}>
@@ -246,7 +246,7 @@ export default function Index() {
       
 
       </View>
-    </View>
+    </SafeAreaView>
 
   );
 }
