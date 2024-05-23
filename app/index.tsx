@@ -11,6 +11,7 @@ type RootStackParamList = {
   add: undefined; 
   dress: undefined;
   closet: undefined;
+  personalize: undefined;
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
 
@@ -136,7 +137,7 @@ export default function Index() {
   const navigation = useNavigation<NavigationProp>();
   let weather_api_key = "b619c02ef0d0c5ea4a66d9ddf680e09f";
   let city = "Ann Arbor";
-  const [tempInFarenheit, setTempInFarenheit] = useState(0);
+  const [tempInFarenheit, setTempInFarenheit] = useState<string>("...");
   const [weather_path, setWeatherPath] = useState<WeatherImageKey>('default');
 
   const fetchWeatherData = async (location: Location.LocationObject) => {
@@ -150,11 +151,13 @@ export default function Index() {
       let kelvin = data.main.temp;
       let exact = (1.8 * (kelvin - 273) + 32)
       //if exact is a decimal, round to the nearest whole number
+      console.log("Exact F: ", exact);
       let farenheit = Math.round(exact);
       console.log("Farenheit: ", farenheit);
       console.log("Longitude: ", location.coords.longitude);
       console.log("Latitude: ", location.coords.latitude);
-      setTempInFarenheit(farenheit);
+      let str_farenheit = farenheit.toString();
+      setTempInFarenheit(str_farenheit);
       if(data.weather && data.weather[0].icon) {
         switch(data.weather[0].icon) {
           case "01d":
@@ -235,7 +238,7 @@ export default function Index() {
           </View>
 
           <View style = {styles.personalizecontainer}>
-            <TouchableOpacity style={styles.personalizebutton} onPress={() => console.log("personalize pressed")}>
+            <TouchableOpacity style={styles.personalizebutton} onPress={() => navigation.navigate('personalize')}>
               <Text style={[styles.personalizetext, { textAlign: 'center' }]}>Personalize</Text>
             </TouchableOpacity>
           </View>

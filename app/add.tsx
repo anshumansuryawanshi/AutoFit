@@ -8,6 +8,9 @@ import { StackNavigationProp } from '@react-navigation/stack';
 type RootStackParamList = {
   index: undefined;
   add: undefined; 
+  dress: undefined;
+  closet: undefined;
+  personalize: undefined;
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'add'>;
 
