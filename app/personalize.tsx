@@ -90,6 +90,23 @@ export default function Personalize() {
     const [formality, setFormality] = useState<number | null>(null);
     const [colorPriority, setColorPriority] = useState<number | null>(null);
 
+    const getLengthLabel = (value: number | null) => {
+        if (value === null) return 'No Preference';
+        if (value <= 25) return 'Short';
+        if (value <= 50) return 'Medium';
+        if (value <= 75) return 'Warm Clothing';
+        return 'Bundling Up';
+    };
+
+    const getFormalityLabel = (value: number | null) => {
+        if (value === null) return 'No Preference';
+        if (value <= 25) return 'Super Casual';
+        if (value <= 50) return 'Casual';
+        if (value <= 75) return 'Nicer Clothing';
+        return 'Feelin\' fancy';
+    };
+
+
     return (
         <>
             <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}/>
@@ -102,7 +119,7 @@ export default function Personalize() {
             </View>
             <View style={styles.sliderContainer}>
                 <View style={styles.sliderRow}>
-                    <Text style={styles.sliderLabel}>Length: {length !== null ? Math.round(length) : 'No Preference'}</Text>
+                    <Text style={styles.sliderLabel}>Length: {getLengthLabel(length)}</Text>
                     <TouchableOpacity style={styles.noPreferenceButton} onPress={() => setLength(null)}>
                         <Text style={styles.noPreferenceButtonText}>No Preference</Text>
                     </TouchableOpacity>
@@ -110,7 +127,7 @@ export default function Personalize() {
                 <Slider value={length || 0} onValueChange={(value) => setLength(Math.round(value))} minimumValue={0} maximumValue={100} />
 
                 <View style={styles.sliderRow}>
-                    <Text style={styles.sliderLabel}>Formality: {formality !== null ? Math.round(formality) : 'No Preference'}</Text>
+                    <Text style={styles.sliderLabel}>Formality: {getFormalityLabel(formality)}</Text>
                     <TouchableOpacity style={styles.noPreferenceButton} onPress={() => setFormality(null)}>
                         <Text style={styles.noPreferenceButtonText}>No Preference</Text>
                     </TouchableOpacity>
