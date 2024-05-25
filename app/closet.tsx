@@ -2,6 +2,8 @@ import React from 'react';
 import { View, Text, ScrollView, FlatList, StyleSheet, TouchableOpacity, Image, SafeAreaView, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Dimensions } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type RootStackParamList = {
     index: undefined;
@@ -74,6 +76,8 @@ const renderItem = ({ item }: { item: { id: string, src: any } }) => (
     </View>
 );
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
     container: {
         flex: 1,
@@ -83,15 +87,15 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     headerText: {
-        fontSize: 24,
+        fontSize: RFValue(24, 812),
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#E25D61',
     },
     itemContainer: {
-        padding: 10,
-        width: 120,
-        height: 120,
+        padding: RFValue(10, 812),
+        width: RFValue(120, 812),
+        height: RFValue(120, 812),
         backgroundColor: 'white',
     },
     imageStyle: {
@@ -100,18 +104,18 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     bottomButton: {
-        width: '90%',
-        height: 50,
+        width: width * 0.9, 
+        height: RFValue(50, 812),
         backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        marginVertical: 20,
-        borderRadius: 10,
+        marginVertical: RFValue(20, 812),
+        borderRadius: RFValue(10, 812),
     },
     buttonText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: RFValue(20, 812),
     },
 });
 

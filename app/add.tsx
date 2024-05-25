@@ -4,6 +4,8 @@ import { useState } from 'react';
 import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Dimensions } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type RootStackParamList = {
   index: undefined;
@@ -14,6 +16,8 @@ type RootStackParamList = {
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'add'>;
 
+const { width, height } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -22,35 +26,33 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: RFValue(20, 812),
     textAlign: 'center',
   },
   camera: {
     flex: 1,
   },
   savebutton: {
-    height: 100,
-    width: 100,
-    borderRadius: 50,
+    height: RFValue(110, 812),
+    width: RFValue(110, 812),
+    borderRadius: RFValue(60, 812),
     backgroundColor: '#E25D61',
     position: 'absolute',
-    bottom: 60,
+    bottom: RFValue(40, 812),
     alignSelf: 'center',
   },
   footerButton: {
     width: '100%',
-    height: '10%',
-    backgroundColor: 'black',
+    height: height * 0.1,
+    backgroundColor: 'rgba(0, 0, 0)',
     justifyContent: 'center',
     alignSelf: 'center',
-
   },
   footerText: {
     color: 'white',
-    fontSize: 20,
+    fontSize: RFValue(25, 812),
     textAlign: 'center',
   },
-
 });
 
 export default function App() {
