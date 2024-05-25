@@ -4,6 +4,7 @@ import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Slider from '@react-native-community/slider';
 // import hsvToRgb from 'hsv-to-rgb';
+import { ColorPicker } from 'react-native-color-picker';
 
 
 type RootStackParamList = {
@@ -88,7 +89,8 @@ export default function Personalize() {
 
     const [length, setLength] = useState<number | null>(null);
     const [formality, setFormality] = useState<number | null>(null);
-    const [colorPriority, setColorPriority] = useState<number | null>(null);
+    const [theme, setTheme] = useState<number | null>(null);
+    const [selectedColor, setSelectedColor] = useState('#000000');
 
     const getLengthLabel = (value: number | null) => {
         if (value === null) return 'No Preference';
@@ -104,6 +106,15 @@ export default function Personalize() {
         if (value <= 50) return 'Casual';
         if (value <= 75) return 'Nicer Clothing';
         return 'Feelin\' fancy';
+    };
+
+    const getThemeLabel = (value: number | null) => {
+        if (value === null) return 'No Preference';
+        if (value <= 20) return 'Bright';
+        if (value <= 40) return 'Dark';
+        if (value <= 60) return 'Festive';
+        if (value <= 80) return 'Placeholder';
+        return 'Specific Color';
     };
 
 
@@ -135,13 +146,20 @@ export default function Personalize() {
                 <Slider value={formality || 0} onValueChange={(value) => setFormality(Math.round(value))} minimumValue={0} maximumValue={100} />
 
                 <View style={styles.sliderRow}>
-                    <Text style={styles.sliderLabel}>Color: {colorPriority !== null ? Math.round(colorPriority) : 'No Preference'}</Text>
-                    <TouchableOpacity style={styles.noPreferenceButton} onPress={() => setColorPriority(null)}>
+                    <Text style={styles.sliderLabel}>Theme: {getThemeLabel(theme)}</Text>
+                    <TouchableOpacity style={styles.noPreferenceButton} onPress={() => setTheme(null)}>
                         <Text style={styles.noPreferenceButtonText}>No Preference</Text>
                     </TouchableOpacity>
                 </View>
-                <Slider value={colorPriority || 0} onValueChange={(value) => setColorPriority(Math.round(value))} minimumValue={0} maximumValue={100} />
+                <Slider value={theme || 0} onValueChange={(value) => setTheme(Math.round(value))} minimumValue={0} maximumValue={100} />
 
+                {getThemeLabel(theme) === 'Specific Color' && (
+                    <ColorPicker
+                        onColorSelected={color => setSelectedColor(color)}
+                        style={{flex: 1}}
+                    />
+                )}
+                     
                 <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
                     <Text style={styles.buttonText}>Done</Text>
                 </TouchableOpacity>
