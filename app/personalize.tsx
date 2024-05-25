@@ -3,9 +3,9 @@ import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, useColorScheme,
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import Slider from '@react-native-community/slider';
-// import hsvToRgb from 'hsv-to-rgb';
 import { ColorPicker } from 'react-native-color-picker';
-
+import { RFValue } from 'react-native-responsive-fontsize';
+import { Dimensions } from 'react-native';
 
 type RootStackParamList = {
     index: undefined;
@@ -13,8 +13,12 @@ type RootStackParamList = {
     dress: undefined;
     closet: undefined;
     personalize: undefined;
+    personalcloset: undefined;
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'closet'>;
+
+const windowWidth = Dimensions.get('window').width;
+const windowHeight = Dimensions.get('window').height;
 
 const styles = StyleSheet.create({
     container: {
@@ -22,18 +26,18 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     header: {
-        padding: 50,
+        padding: windowWidth * 0.05, // 5% of the screen width
     },
     headerText: {
-        fontSize: 30,
+        fontSize: RFValue(25), // Adjust as needed
         color: '#E25D61',
         textAlign: 'center',
         backgroundColor: 'transparent',
     },
     itemContainer: {
-        padding: 10,
-        width: 120,
-        height: 120,
+        padding: windowWidth * 0.02, // 2% of the screen width
+        width: windowWidth * 0.3, // 30% of the screen width
+        height: windowHeight * 0.3, // 30% of the screen height
         backgroundColor: 'white',
     },
     imageStyle: {
@@ -43,43 +47,43 @@ const styles = StyleSheet.create({
     },
     bottomButton: {
         width: '90%',
-        height: 50,
+        height: windowHeight * 0.07, // 7% of the screen height
         backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        marginVertical: 20,
+        marginVertical: windowHeight * 0.02, // 2% of the screen height
         borderRadius: 10,
     },
     buttonText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: RFValue(20), // Adjust as needed
     },
     sliderContainer: {
         flex: 1,
         alignItems: 'stretch',
         justifyContent: 'center',
-        padding: 20,
+        padding: windowWidth * 0.05, // 5% of the screen width
     },
     sliderLabel: {
-        fontSize: 18,
+        fontSize: RFValue(18), // Adjust as needed
         textAlign: 'center',
     },
     sliderRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: 10,
+        marginBottom: windowHeight * 0.01, // 1% of the screen height
     },
     noPreferenceButton: {
         backgroundColor: 'black',
-        paddingHorizontal: 10,
-        paddingVertical: 5,
+        paddingHorizontal: windowWidth * 0.02, // 2% of the screen width
+        paddingVertical: windowHeight * 0.005, // 0.5% of the screen height
         borderRadius: 5,
     },
     noPreferenceButtonText: {
         color: 'white',
-        fontSize: 16,
+        fontSize: RFValue(16), // Adjust as needed
     },
 });
 
@@ -159,8 +163,12 @@ export default function Personalize() {
                         style={{flex: 1}}
                     />
                 )}
+
+                <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('personalcloset')}>
+                    <Text style={styles.buttonText}>Select Apparel For Fit</Text>
+                </TouchableOpacity>
                      
-                <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
+                <TouchableOpacity style={[styles.bottomButton, {marginTop: windowHeight * 0.05}]} onPress={() => navigation.navigate('index')}>
                     <Text style={styles.buttonText}>Done</Text>
                 </TouchableOpacity>
             </View>
