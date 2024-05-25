@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { View, Text, ScrollView, FlatList, StyleSheet, TouchableOpacity, Image, SafeAreaView, useColorScheme } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Dimensions } from 'react-native';
+import { RFValue } from 'react-native-responsive-fontsize';
 
 type RootStackParamList = {
     index: undefined;
@@ -14,58 +16,58 @@ type RootStackParamList = {
 type NavigationProp = StackNavigationProp<RootStackParamList, 'selectclothes'>;
 
 const dataTshirts = [
-    { id: '1', src: require('../assets/images/weather_icon.png') },
-    { id: '2', src: require('../assets/images/weather_icon.png') },
-    { id: '3', src: require('../assets/images/weather_icon.png') },
-    { id: '4', src: require('../assets/images/weather_icon.png') },
-    { id: '5', src: require('../assets/images/weather_icon.png') },
-    { id: '6', src: require('../assets/images/weather_icon.png') },
-    { id: '7', src: require('../assets/images/weather_icon.png') },
-    { id: '8', src: require('../assets/images/weather_icon.png') },
+    { id: '1', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '2', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '3', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '4', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '5', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '6', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '7', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '8', src: require('../assets/images/weather_icon.png'), selected: false },
 ];
 
 const dataSweatpants = [
-    { id: '1', src: require('../assets/images/weather_icon.png') },
-    { id: '2', src: require('../assets/images/weather_icon.png') },
-    { id: '3', src: require('../assets/images/weather_icon.png') },
-    { id: '4', src: require('../assets/images/weather_icon.png') },
-    { id: '5', src: require('../assets/images/weather_icon.png') },
-    { id: '6', src: require('../assets/images/weather_icon.png') },
-    { id: '7', src: require('../assets/images/weather_icon.png') },
-    { id: '8', src: require('../assets/images/weather_icon.png') },
+    { id: '1', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '2', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '3', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '4', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '5', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '6', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '7', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '8', src: require('../assets/images/weather_icon.png'), selected: false },
 ];
 
 const dataSweatshirts = [
-    { id: '1', src: require('../assets/images/weather_icon.png') },
-    { id: '2', src: require('../assets/images/weather_icon.png') },
-    { id: '3', src: require('../assets/images/weather_icon.png') },
-    { id: '4', src: require('../assets/images/weather_icon.png') },
-    { id: '5', src: require('../assets/images/weather_icon.png') },
-    { id: '6', src: require('../assets/images/weather_icon.png') },
-    { id: '7', src: require('../assets/images/weather_icon.png') },
-    { id: '8', src: require('../assets/images/weather_icon.png') },
+    { id: '1', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '2', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '3', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '4', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '5', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '6', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '7', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '8', src: require('../assets/images/weather_icon.png'), selected: false },
 ];
 
 const dataButtonDowns = [
-    { id: '1', src: require('../assets/images/weather_icon.png') },
-    { id: '2', src: require('../assets/images/weather_icon.png') },
-    { id: '3', src: require('../assets/images/weather_icon.png') },
-    { id: '4', src: require('../assets/images/weather_icon.png') },
-    { id: '5', src: require('../assets/images/weather_icon.png') },
-    { id: '6', src: require('../assets/images/weather_icon.png') },
-    { id: '7', src: require('../assets/images/weather_icon.png') },
-    { id: '8', src: require('../assets/images/weather_icon.png') },
+    { id: '1', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '2', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '3', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '4', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '5', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '6', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '7', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '8', src: require('../assets/images/weather_icon.png'), selected: false },
 ];
 
 const dataShorts = [
-    { id: '1', src: require('../assets/images/weather_icon.png') },
-    { id: '2', src: require('../assets/images/weather_icon.png') },
-    { id: '3', src: require('../assets/images/weather_icon.png') },
-    { id: '4', src: require('../assets/images/weather_icon.png') },
-    { id: '5', src: require('../assets/images/weather_icon.png') },
-    { id: '6', src: require('../assets/images/weather_icon.png') },
-    { id: '7', src: require('../assets/images/weather_icon.png') },
-    { id: '8', src: require('../assets/images/weather_icon.png') },
+    { id: '1', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '2', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '3', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '4', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '5', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '6', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '7', src: require('../assets/images/weather_icon.png'), selected: false },
+    { id: '8', src: require('../assets/images/weather_icon.png'), selected: false },
 ];
 
 
@@ -74,6 +76,8 @@ const renderItem = ({ item }: { item: { id: string, src: any } }) => (
         <Image source={item.src} style={styles.imageStyle} />
     </View>
 );
+
+const { width, height } = Dimensions.get('window');
 
 const styles = StyleSheet.create({
     container: {
@@ -84,15 +88,19 @@ const styles = StyleSheet.create({
         padding: 0,
     },
     headerText: {
-        fontSize: 24,
+        fontSize: RFValue(24, 812),
         color: 'white',
         textAlign: 'center',
         backgroundColor: '#E25D61',
     },
+    selectedItem: {
+        borderColor: 'blue',
+        borderWidth: 2,
+    },
     itemContainer: {
-        padding: 10,
-        width: 120,
-        height: 120,
+        padding: RFValue(10, 812),
+        width: RFValue(120, 812),
+        height: RFValue(120, 812),
         backgroundColor: 'white',
     },
     imageStyle: {
@@ -101,24 +109,25 @@ const styles = StyleSheet.create({
         resizeMode: 'cover',
     },
     bottomButton: {
-        width: '90%',
-        height: 50,
+        width: width * 0.9, 
+        height: RFValue(50, 812),
         backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        marginVertical: 20,
-        borderRadius: 10,
+        marginVertical: RFValue(20, 812),
+        borderRadius: RFValue(10, 812),
     },
     buttonText: {
         color: 'white',
-        fontSize: 20,
+        fontSize: RFValue(20, 812),
     },
 });
 
 export default function ViewCloset() {
     const navigation = useNavigation<NavigationProp>();
     const colorScheme = useColorScheme();
+    const [clothesData, setClothesData] = useState(dataTshirts); // replace dataTshirts with the data array you want to use
     return (
         <>
             <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}/>

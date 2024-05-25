@@ -11,6 +11,7 @@ type RootStackParamList = {
     dress: undefined;
     closet: undefined;
     personalize: undefined;
+    selectclothes: undefined;
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'closet'>;
 
