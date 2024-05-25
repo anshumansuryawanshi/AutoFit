@@ -12,7 +12,7 @@ export default function RootLayout() {
       <Stack.Screen name="personalize" options = {{ headerShown: false}} />
       <Stack.Screen name="dress" options = {{ headerShown: false}} />
       <Stack.Screen name="closet" options = {{ headerShown: false}} /> 
-      <Stack.Screen name="personalcloset" options = {{ headerShown: false}} />  
+      <Stack.Screen name="selectclothes" options = {{ headerShown: false}} />  
     </Stack>
 
   );

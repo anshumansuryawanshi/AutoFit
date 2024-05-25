@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import * as Location from 'expo-location';
+import { RFValue } from 'react-native-responsive-fontsize';
+import { Dimensions } from 'react-native';
 
 
 type RootStackParamList = {
@@ -15,6 +17,8 @@ type RootStackParamList = {
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'index'>;
 
+const { height, width } = Dimensions.get('window');
+
 const styles = StyleSheet.create({
   container:{
     flex: 1,
@@ -24,44 +28,48 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between', 
     backgroundColor: 'white',
     flexDirection: 'row',
-    paddingTop: 30,
+    paddingTop: RFValue(30, 812),
   },
   weathercontainer: {
-    paddingLeft: 20
+    paddingLeft: RFValue(25, 812),
+    alignItems: 'center',
   },
   weathertext:{
     textAlign: 'center',
-    fontSize: 20,
-    paddingTop: 5
+    fontSize: RFValue(22, 812),
+    paddingTop: RFValue(5, 812)
+  },
+  weatherImage: {
+    width: RFValue(60, 812),
+    height: RFValue(60, 812),
   },
   personalizecontainer:{
     justifyContent: 'center',
     alignItems: 'center',
-    paddingRight: 20
-
+    paddingRight: RFValue(25, 812)
   },
   personalizetext:{
-    fontSize: 15,
+    fontSize: RFValue(18, 812),
     color: 'white',
   },
   personalizebutton:{
-    width: 100,
-    height: 50,
+    width: RFValue(120, 812),
+    height: RFValue(60, 812),
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 10,
+    padding: RFValue(10, 812),
     backgroundColor: 'black',
-    borderRadius: 10,
+    borderRadius: RFValue(10, 812),
   },
   middlecontainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: 0,
-    paddingBottom: 90
+    paddingBottom: RFValue(90, 812)
   },
   middletext:{
-    fontSize: 60,
+    fontSize: RFValue(70, 812),
     color: 'black',
   },
   footercontainer: {
@@ -73,38 +81,38 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     alignItems: 'center',
     width: '100%',
-    padding: 18, 
+    padding: RFValue(18, 812), 
     backgroundColor: 'black', 
   },
   rightbutton: {
-    padding: 10,
+    padding: RFValue(10, 812),
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1, 
-    paddingLeft: 100,
+    paddingLeft: RFValue(100, 812),
   },
   leftbutton: {
-    padding: 10,
+    padding: RFValue(10, 812),
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1, 
-    paddingRight: 100,
+    paddingRight: RFValue(100, 812),
   },
   rectangleText: {
     color: 'white',
-    fontSize: 18
+    fontSize: RFValue(20, 812)
   },
   circleText: {
     color: 'white',
     textAlign: 'center',
-    fontSize: 40,
-    padding: 20
+    fontSize: RFValue(50, 812),
+    padding: RFValue(20, 812)
   },
   dressButton: {
-    width: 190,
-    height: 190,
+    width: width * 0.5,
+    height: width * 0.5,
     backgroundColor: '#E25D61',
-    borderRadius: 95,
+    borderRadius: width * 0.25,
     position: 'absolute',
     bottom: 0, 
     alignSelf: 'center', 
@@ -235,8 +243,8 @@ export default function Index() {
       <SafeAreaView style={{backgroundColor: colorScheme === 'dark' ? 'black' : 'white'}}>
         <View style = {styles.headercontainer}>
           <View style = {styles.weathercontainer}>
-            <Image source={weather_images[weather_path]} style={{ width: 50, height: 50 }} />
-            <Text style={[styles.weathertext]}> {tempInFarenheit}°F </Text>
+            <Image source={weather_images[weather_path]} style={styles.weatherImage} />
+            <Text style={[styles.weathertext]}>{tempInFarenheit}°F</Text>
           </View>
 
           <View style = {styles.personalizecontainer}>

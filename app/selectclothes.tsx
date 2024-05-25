@@ -9,9 +9,9 @@ type RootStackParamList = {
     dress: undefined;
     closet: undefined;
     personalize: undefined;
-    personalcloset: undefined;
+    selectclothes: undefined;
 };
-type NavigationProp = StackNavigationProp<RootStackParamList, 'personalcloset'>;
+type NavigationProp = StackNavigationProp<RootStackParamList, 'selectclothes'>;
 
 const dataTshirts = [
     { id: '1', src: require('../assets/images/weather_icon.png') },
@@ -178,8 +178,8 @@ export default function ViewCloset() {
                         />
                     </View>
 
-                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('index')}>
-                        <Text style={styles.buttonText}>Take Me Home</Text>
+                    <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('personalize')}>
+                        <Text style={styles.buttonText}>Back to Personalize</Text>
                     </TouchableOpacity>
 
                 </ScrollView>

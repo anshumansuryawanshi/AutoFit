@@ -15,7 +15,7 @@ type RootStackParamList = {
     personalize: undefined;
     selectclothes: undefined;
 };
-type NavigationProp = StackNavigationProp<RootStackParamList, 'closet'>;
+type NavigationProp = StackNavigationProp<RootStackParamList, 'personalize'>;
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -127,7 +127,7 @@ export default function Personalize() {
         if (value <= 20) return 'Bright';
         if (value <= 40) return 'Dark';
         if (value <= 60) return 'Festive';
-        if (value <= 80) return 'Placeholder';
+        if (value <= 80) return 'Sporty';
         return 'Specific Color';
     };
 

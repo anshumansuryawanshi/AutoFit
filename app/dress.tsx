@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
             <Text style={styles.middletext}>Today's Fit:</Text>
             <Image source={require("../assets/images/rain.png")} style={{ width: 150, height: 150 }}/>
             <Image source={require("../assets/images/thunderstorm.png")} style={{ width: 150, height: 150 }}/>
+            <Image source={require("../assets/images/thunderstorm.png")} style={{ width: 150, height: 150 }}/>
           </View>
           
           <View style={styles.footercontainer}>
