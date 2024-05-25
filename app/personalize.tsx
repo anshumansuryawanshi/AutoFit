@@ -13,7 +13,7 @@ type RootStackParamList = {
     dress: undefined;
     closet: undefined;
     personalize: undefined;
-    personalcloset: undefined;
+    selectclothes: undefined;
 };
 type NavigationProp = StackNavigationProp<RootStackParamList, 'closet'>;
 
@@ -26,10 +26,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
     },
     header: {
-        padding: windowWidth * 0.05, // 5% of the screen width
+        padding: windowWidth * 0.05, 
     },
     headerText: {
-        fontSize: RFValue(25), // Adjust as needed
+        fontSize: RFValue(25), 
         color: '#E25D61',
         textAlign: 'center',
         backgroundColor: 'transparent',
@@ -47,43 +47,53 @@ const styles = StyleSheet.create({
     },
     bottomButton: {
         width: '90%',
-        height: windowHeight * 0.07, // 7% of the screen height
+        height: windowHeight * 0.07, 
         backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center',
         alignSelf: 'center',
-        marginVertical: windowHeight * 0.02, // 2% of the screen height
+        marginVertical: windowHeight * 0.005, 
         borderRadius: 10,
     },
     buttonText: {
         color: 'white',
-        fontSize: RFValue(20), // Adjust as needed
+        fontSize: RFValue(20),
     },
     sliderContainer: {
         flex: 1,
         alignItems: 'stretch',
         justifyContent: 'center',
-        padding: windowWidth * 0.05, // 5% of the screen width
+        padding: windowWidth * 0.05, 
     },
     sliderLabel: {
-        fontSize: RFValue(18), // Adjust as needed
+        fontSize: RFValue(18), 
         textAlign: 'center',
     },
     sliderRow: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: windowHeight * 0.01, // 1% of the screen height
+        marginBottom: windowHeight * 0.01, 
     },
     noPreferenceButton: {
         backgroundColor: 'black',
-        paddingHorizontal: windowWidth * 0.02, // 2% of the screen width
-        paddingVertical: windowHeight * 0.005, // 0.5% of the screen height
+        paddingHorizontal: windowWidth * 0.02, 
+        paddingVertical: windowHeight * 0.005,
         borderRadius: 5,
     },
     noPreferenceButtonText: {
         color: 'white',
-        fontSize: RFValue(16), // Adjust as needed
+        fontSize: RFValue(16),
+    },
+    selectButton: {
+        width: '90%',
+        height: windowHeight * 0.07,
+        backgroundColor: 'black',
+        justifyContent: 'center',
+        alignItems: 'center',
+        alignSelf: 'center',
+        marginVertical: windowHeight * 0.01,
+        borderRadius: 10,
     },
 });
 
@@ -164,7 +174,7 @@ export default function Personalize() {
                     />
                 )}
 
-                <TouchableOpacity style={styles.bottomButton} onPress={() => navigation.navigate('personalcloset')}>
+                <TouchableOpacity style={styles.selectButton} onPress={() => navigation.navigate('selectclothes')}>
                     <Text style={styles.buttonText}>Select Apparel For Fit</Text>
                 </TouchableOpacity>
                      
