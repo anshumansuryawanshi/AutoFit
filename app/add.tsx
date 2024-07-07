@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   footerButton: {
     width: '100%',
     height: height * 0.1,
-    backgroundColor: 'rgba(255, 255, 255, 0.5)',
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -48,7 +48,28 @@ const styles = StyleSheet.create({
   },
   imagePreview: {
     width: '100%',
-    height: '80%',
+    height: height - (height * 0.1), // Adjust height to take up all space above the footer
+  },
+  actionCircle: {
+    position: 'absolute',
+    bottom: RFValue(100, 812), // Adjust position as needed
+    width: RFValue(60, 812),
+    height: RFValue(60, 812),
+    borderRadius: RFValue(30, 812),
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  retakeCircle: {
+    left: RFValue(30, 812),
+    backgroundColor: 'red', // Red circle for retake
+  },
+  saveCircle: {
+    right: RFValue(30, 812),
+    backgroundColor: 'green', // Green circle for save
+  },
+  actionText: {
+    color: 'white',
+    fontSize: RFValue(30, 812),
   },
 });
 
@@ -85,14 +106,20 @@ export default function App() {
       {photoUri ? (
         <View style={{ flex: 1 }}>
           <Image source={{ uri: photoUri }} style={styles.imagePreview} />
-          <Button title="Save Photo" onPress={() => console.log('Save photo logic here')} />
-          <Button title="Retake" onPress={() => setPhotoUri(null)} />
+          <TouchableOpacity
+            style={[styles.actionCircle, styles.retakeCircle]}
+            onPress={() => setPhotoUri(null)}>
+            <Text style={styles.actionText}>X</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.actionCircle, styles.saveCircle]}
+            onPress={() => console.log('Save photo logic here')}>
+            <Text style={styles.actionText}>✓</Text>
+          </TouchableOpacity>
         </View>
       ) : (
         <CameraView style={styles.camera} ref={cameraRef}>
-          <TouchableOpacity style={styles.savebutton} onPress={takePicture}>
-            <Text style={{ textAlign: 'center', color: 'white' }}>Take Photo</Text>
-          </TouchableOpacity>
+          <TouchableOpacity style={styles.savebutton} onPress={takePicture}></TouchableOpacity>
         </CameraView>
       )}
       <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
