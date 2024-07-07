@@ -52,24 +52,24 @@ const styles = StyleSheet.create({
   },
   actionCircle: {
     position: 'absolute',
-    bottom: RFValue(100, 812), // Adjust position as needed
-    width: RFValue(60, 812),
-    height: RFValue(60, 812),
-    borderRadius: RFValue(30, 812),
+    bottom: RFValue(80, 812),
+    width: RFValue(100, 812), 
+    height: RFValue(100, 812),
+    borderRadius: RFValue(50, 812), 
     justifyContent: 'center',
     alignItems: 'center',
   },
   retakeCircle: {
-    left: RFValue(30, 812),
-    backgroundColor: 'red', // Red circle for retake
+    left: '15%', 
+    backgroundColor: '#ff7f7f', // Pastel red
   },
   saveCircle: {
-    right: RFValue(30, 812),
-    backgroundColor: 'green', // Green circle for save
+    right: '15%', 
+    backgroundColor: '#7fff7f', // Pastel green
   },
   actionText: {
     color: 'white',
-    fontSize: RFValue(30, 812),
+    fontSize: RFValue(40, 812),
   },
 });
 
