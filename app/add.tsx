@@ -1,15 +1,13 @@
 import { CameraView, useCameraPermissions } from 'expo-camera';
-import React from 'react';
-import { useState } from 'react';
-import { View, TouchableOpacity, Text, StyleSheet, SafeAreaView, Button } from 'react-native';
+import React, { useState, useRef } from 'react';
+import { View, TouchableOpacity, Text, StyleSheet, Button, Image, Dimensions } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
-import { Dimensions } from 'react-native';
 import { RFValue } from 'react-native-responsive-fontsize';
 
 type RootStackParamList = {
   index: undefined;
-  add: undefined; 
+  add: undefined;
   dress: undefined;
   closet: undefined;
   personalize: undefined;
@@ -23,11 +21,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'black',
     justifyContent: 'center',
-  },
-  headerText: {
-    color: 'white',
-    fontSize: RFValue(20, 812),
-    textAlign: 'center',
   },
   camera: {
     flex: 1,
@@ -44,7 +37,7 @@ const styles = StyleSheet.create({
   footerButton: {
     width: '100%',
     height: height * 0.1,
-    backgroundColor: 'rgba(255, 255, 255)',
+    backgroundColor: 'rgba(255, 255, 255, 0.5)',
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -53,38 +46,58 @@ const styles = StyleSheet.create({
     fontSize: RFValue(25, 812),
     textAlign: 'center',
   },
+  imagePreview: {
+    width: '100%',
+    height: '80%',
+  },
 });
 
 export default function App() {
   const navigation = useNavigation<NavigationProp>();
   const [permission, requestPermission] = useCameraPermissions();
+  const [photoUri, setPhotoUri] = useState<string | null>(null);
+  const cameraRef = useRef<CameraView>(null);
+
+  const takePicture = async () => {
+    if (cameraRef.current) {
+      const photo = await cameraRef.current.takePictureAsync();
+      if (photo) {
+        setPhotoUri(photo.uri);
+      }
+    }
+  };
 
   if (!permission) {
-    // Camera permissions are still loading.
     return <View />;
   }
 
   if (!permission.granted) {
-    // Camera permissions are not granted yet.
     return (
       <View style={styles.container}>
-        <Text style={{ textAlign: 'center' }}>We need your permission to show the camera</Text>
-        <Button onPress={requestPermission} title="grant permission" />
+        <Text style={{ textAlign: 'center', color: 'white' }}>We need your permission to show the camera</Text>
+        <Button onPress={requestPermission} title="Grant Permission" color="#E25D61" />
       </View>
     );
   }
 
   return (
     <View style={styles.container}>
-
-      <CameraView style={styles.camera}>
-        <TouchableOpacity style={styles.savebutton} onPress={() => console.log("SAVE PHOTO")}> 
-        </TouchableOpacity>
-      </CameraView>
+      {photoUri ? (
+        <View style={{ flex: 1 }}>
+          <Image source={{ uri: photoUri }} style={styles.imagePreview} />
+          <Button title="Save Photo" onPress={() => console.log('Save photo logic here')} />
+          <Button title="Retake" onPress={() => setPhotoUri(null)} />
+        </View>
+      ) : (
+        <CameraView style={styles.camera} ref={cameraRef}>
+          <TouchableOpacity style={styles.savebutton} onPress={takePicture}>
+            <Text style={{ textAlign: 'center', color: 'white' }}>Take Photo</Text>
+          </TouchableOpacity>
+        </CameraView>
+      )}
       <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
-          <Text style={styles.footerText}>Take Me Home</Text>
+        <Text style={styles.footerText}>Take Me Home</Text>
       </TouchableOpacity>
-
     </View>
   );
 }
