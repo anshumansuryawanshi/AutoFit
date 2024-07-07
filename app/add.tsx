@@ -21,7 +21,7 @@ const { width, height } = Dimensions.get('window');
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     justifyContent: 'center',
   },
   headerText: {
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
   footerButton: {
     width: '100%',
     height: height * 0.1,
-    backgroundColor: 'rgba(0, 0, 0)',
+    backgroundColor: 'rgba(255, 255, 255)',
     justifyContent: 'center',
     alignSelf: 'center',
   },
@@ -81,10 +81,9 @@ export default function App() {
         <TouchableOpacity style={styles.savebutton} onPress={() => console.log("SAVE PHOTO")}> 
         </TouchableOpacity>
       </CameraView>
-
       <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
           <Text style={styles.footerText}>Take Me Home</Text>
-        </TouchableOpacity>
+      </TouchableOpacity>
 
     </View>
   );
