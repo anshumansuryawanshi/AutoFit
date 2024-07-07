@@ -4,6 +4,8 @@ import { View, TouchableOpacity, Text, StyleSheet, Button, Image, Dimensions } f
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { RFValue } from 'react-native-responsive-fontsize';
+import * as FileSystem from 'expo-file-system';
+import * as MediaLibrary from 'expo-media-library';
 
 type RootStackParamList = {
   index: undefined;
@@ -88,6 +90,48 @@ export default function App() {
     }
   };
 
+  const saveImage = async () => {
+    if (!photoUri) return;
+
+    // Request media library permissions
+    const { status } = await MediaLibrary.requestPermissionsAsync();
+    if (status !== 'granted') {
+      alert('We need permission to save the photo');
+      return;
+    }
+
+    try {
+      // Save the photo to the gallery
+      const asset = await MediaLibrary.createAssetAsync(photoUri);
+      const assetId = asset.id;
+      // Create an album and add the photo or add to an existing album
+      const albumName = 'DripifyPictures';
+      await MediaLibrary.createAlbumAsync(albumName, asset, false);
+
+      // Optionally, if you want to save it to a specific folder in your app's document directory
+      const folderPath = FileSystem.documentDirectory + '/app/pictures/';
+      await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
+      const fileName = photoUri.split('/').pop();
+      const newPath = folderPath + fileName;
+      await FileSystem.moveAsync({
+        from: photoUri,
+        to: newPath,
+      });
+
+      //The below assetID is how we can access the photo in the future
+      const specificAsset = await MediaLibrary.getAssetInfoAsync(assetId);
+      
+      // Navigate back
+      
+      setPhotoUri(null)
+      navigation.navigate('add');
+    } catch (error) {
+      console.error('Error saving photo', error);
+      alert('Failed to save photo');
+      setPhotoUri(null)
+    }
+  };
+
   if (!permission) {
     return <View />;
   }
@@ -113,7 +157,7 @@ export default function App() {
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.actionCircle, styles.saveCircle]}
-            onPress={() => console.log('Save photo logic here')}>
+            onPress={saveImage}>
             <Text style={styles.actionText}>✓</Text>
           </TouchableOpacity>
         </View>
