@@ -105,23 +105,13 @@ export default function App() {
       const asset = await MediaLibrary.createAssetAsync(photoUri);
     
       // Create an album and add the photo or add to an existing album
-      const albumName = 'DripifyPictures';
+      const albumName = 'Dripify Pictures';
       let album = await MediaLibrary.getAlbumAsync(albumName);
       if (album == null) {
         album = await MediaLibrary.createAlbumAsync(albumName, asset, true);
       } else {
         await MediaLibrary.addAssetsToAlbumAsync([asset], album, true);
       }
-    
-      // Optionally, if you want to save it to a specific folder in your app's document directory
-      const folderPath = FileSystem.documentDirectory + '/app/pictures/';
-      await FileSystem.makeDirectoryAsync(folderPath, { intermediates: true });
-      const fileName = photoUri.split('/').pop();
-      const newPath = folderPath + fileName;
-      await FileSystem.moveAsync({
-        from: photoUri,
-        to: newPath,
-      });
     
       //The below assetID is how we can access the photo in the future
       const specificAsset = await MediaLibrary.getAssetInfoAsync(asset.id);
