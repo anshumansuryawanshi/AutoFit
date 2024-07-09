@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   imagePreview: {
     width: '100%',
-    height: height - (height * 0.1), // Adjust height to take up all space above the footer
+    height: height, // Adjust height to take up all space above the footer
   },
   actionCircle: {
     position: 'absolute',
@@ -162,13 +162,15 @@ export default function App() {
           </TouchableOpacity>
         </View>
       ) : (
-        <CameraView style={styles.camera} ref={cameraRef}>
-          <TouchableOpacity style={styles.savebutton} onPress={takePicture}></TouchableOpacity>
-        </CameraView>
+        <>
+          <CameraView style={styles.camera} ref={cameraRef}>
+            <TouchableOpacity style={styles.savebutton} onPress={takePicture}></TouchableOpacity>
+          </CameraView>
+          <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
+            <Text style={styles.footerText}>Take Me Home</Text>
+          </TouchableOpacity>
+        </>
       )}
-      <TouchableOpacity style={styles.footerButton} onPress={() => navigation.navigate('index')}>
-        <Text style={styles.footerText}>Take Me Home</Text>
-      </TouchableOpacity>
     </View>
   );
 }
